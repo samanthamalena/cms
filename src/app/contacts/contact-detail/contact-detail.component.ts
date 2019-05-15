@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Contact } from '../contact-list/contact.model';
 
 @Component({
@@ -7,8 +7,9 @@ import { Contact } from '../contact-list/contact.model';
   styleUrls: ['./contact-detail.component.css']
 })
 export class ContactDetailComponent implements OnInit {
+  @Input() contact: Contact;
 
-   contact =  new Contact('1', 'Bro. Jackson', 'jacksonk@byui.edu', '208-496-3771', 'https://web.byui.edu/Directory/Employee/jacksonk.jpg', null);
+  // contact =  new Contact('1', 'Bro. Jackson', 'jacksonk@byui.edu', '208-496-3771', 'https://web.byui.edu/Directory/Employee/jacksonk.jpg', null);
 
   constructor() { }
 

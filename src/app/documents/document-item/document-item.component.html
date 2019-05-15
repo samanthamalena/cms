@@ -1,13 +1,16 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="row pad-left-right">
-      <span class="pull-left title">Documents</span>
-      <a class="btn btn-success pull-right">Add Document</a> 
-    </div>
-  </div>
-<div class="panel-body">
-  <div class="center-panel">
-<cms-document-item></cms-document-item>
-  </div>
-</div>
-</div>
+<a
+href="#"
+class="list-group-item clearfix"
+(click) = "onSelected()">
+        <div class="pull-left">
+            <h4 class="list-group-item-heading">{{ document.name }}</h4>
+            <p class="list-group-item-text">{{ document.detail }}</p>
+          </div>
+      <span class="pull-right title"> 
+      <img 
+      [src]="document.url" 
+      alt="{{ document.name }}" 
+      class="img-responsive" 
+      style="max-height: 50px;">
+    </span>
+</a>

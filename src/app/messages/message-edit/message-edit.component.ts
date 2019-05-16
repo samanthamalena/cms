@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
 import { Message } from '../message.model';
 
 @Component({
@@ -8,12 +8,12 @@ import { Message } from '../message.model';
 })
 export class MessageEditComponent implements OnInit {
 @ViewChild('subject') subject: ElementRef;
-@ViewChild('message') msgText: ElementRef;
+@ViewChild('msgText') msgText: ElementRef;
 
 
 currentSender: string = 'Samantha';
 
-@Output() selectedMessageEvent = new EventEmitter<Message>();
+@Output() addedMessage = new EventEmitter<Message>();
   constructor() { }
 
   ngOnInit() {
@@ -22,9 +22,9 @@ currentSender: string = 'Samantha';
   onSendMessage(){
   const subjectValue = this.subject.nativeElement.value;
   const msgTextValue = this.msgText.nativeElement.value;
-  const NewMessage : Message = new Message ('', subjectValue, msgTextValue, this.currentSender);
-  this.selectedMessageEvent.emit(NewMessage);
-  this.onClearMessage;
+  const newMessage : Message = new Message ('', subjectValue, msgTextValue, this.currentSender);
+  this.addedMessage.emit(newMessage);
+  this.onClearMessage();
 }
 
   onClearMessage(){

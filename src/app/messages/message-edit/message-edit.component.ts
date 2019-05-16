@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input} from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter} from '@angular/core';
 import { Message } from '../message.model';
 
 @Component({
@@ -8,10 +8,17 @@ import { Message } from '../message.model';
 })
 export class MessageEditComponent implements OnInit {
 @Input() Message: Message;
-
+@Output() selectedMessageEvent = new EventEmitter<Message>();
   constructor() { }
 
   ngOnInit() {
   }
 
+  onSendMessage(message: Message){
+    this.selectedMessageEvent.emit(message);
+  }
+
+  onClearMessage(message: Message){
+    this.selectedMessageEvent.emit(message);
+  }
 }

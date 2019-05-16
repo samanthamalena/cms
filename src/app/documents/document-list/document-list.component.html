@@ -1,16 +1,12 @@
-<div class= "row">
     <div class="panel panel-default">
-      <div class="col-xs-12 panel-heading">
-        <div class="col-xs-9">
-          <span class="heading">Documents</span>
+      <div class="panel-heading">
+        <div class="row pad-left-right">
+          <span class="pull-left title">Documents</span>
+        <a class="btn btn-success pull-right">Add Document</a>
         </div>
-  <div class="col-xs-3">
-        <button class="btn btn-success">New Document</button>
-      </div>
     </div>
       <div class="panel-body">
-        <div class="row">
-          <div class="col-xs-12 margin-top">
+        <div class="center-panel">
           <cms-document-item
           *ngFor="let document of documents"
           [document]="document"
@@ -19,5 +15,3 @@
           </div>
       </div>
     </div>
-    </div>
-  </div>

@@ -1,3 +1,5 @@
+import {Contact} from '../contacts/contact-list/contact.model';
+
 export class Message  {
     public messageId: string;
     public subject: string;

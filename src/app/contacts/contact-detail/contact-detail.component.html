@@ -8,6 +8,26 @@
         <h1>{{ contact.name }}</h1>
       </div>
       </div>
+      <div class= "row">
+        <div class= "col-xs-12">
+          <div class= "btn-group"
+          appDropdown>
+            <button
+            type = "button"
+            class= "btn btn-primary dropdown-toggle">
+            Manage Contact <span class="carat"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#">To Contact List</a></li>
+              <li><a href="#">Edit Contact</a></li>
+              <li><a href="#">Delete Contact</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
           <div class="panel-body contact-details">
           <p>Email: {{ contact.email }}</p>
           <p>Phone: {{ contact.phone }}</p>

@@ -7,7 +7,7 @@ import { Document } from '../documents/document.model';
   styleUrls: ['./documents.component.css']
 })
 export class DocumentsComponent implements OnInit {
-  selectedDocumentEvent: Document;
+  selectedDocument: Document;
 
   @Input() Document: Document;
   

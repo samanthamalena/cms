@@ -17,7 +17,7 @@ selectedDocument = new EventEmitter<Document>();
 
      getDocument(id: string): Document {
          for (let i = 0; i < Document.length; i++) {
-             if (this.documents[i].documentId === id) {
+             if (this.documents[i].id === id) {
                  return this.documents[i];
              }
          }

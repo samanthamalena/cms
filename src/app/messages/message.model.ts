@@ -1,16 +1,11 @@
-import {Contact} from '../contacts/contact-list/contact.model';
+import { Injectable } from '@angular/core';
 
-export class Message  {
-    public messageId: string;
-    public subject: string;
-    public msgText: string;
-    public sender: string;
+@Injectable()
+export class Message{
 
-    constructor(messageId: string, subject: string, msgText: string, sender: string){
-        this.messageId = messageId;
-        this.subject = subject;
-        this.msgText = msgText;
-        this.sender = sender;
-
+    constructor(public id: string,
+        public subject: string,
+        public msgText: string,
+        public sender: string) {
     }
 }  

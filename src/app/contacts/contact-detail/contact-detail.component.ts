@@ -9,8 +9,6 @@ import { Contact } from '../contact-list/contact.model';
 export class ContactDetailComponent implements OnInit {
   @Input() contact: Contact;
 
-  // contact =  new Contact('1', 'Bro. Jackson', 'jacksonk@byui.edu', '208-496-3771', 'https://web.byui.edu/Directory/Employee/jacksonk.jpg', null);
-
   constructor() { }
 
   ngOnInit() {

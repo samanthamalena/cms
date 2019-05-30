@@ -6,7 +6,7 @@ import { MessagesService } from './messages.service';
   selector: 'cms-messages',
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css'],
-  providers: [MessagesService]
+  providers: []
 })
 export class MessagesComponent implements OnInit {
  messages: Message[];

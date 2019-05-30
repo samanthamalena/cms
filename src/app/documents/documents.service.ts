@@ -2,7 +2,9 @@ import {Injectable, EventEmitter} from '@angular/core';
 import { Document } from "../documents/document.model";
 import { MOCKDOCUMENTS } from "./MOCKDOCUMENTS"
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class DocumentService {
 
 selectedDocument = new EventEmitter<Document>();

@@ -24,12 +24,6 @@ export const MOCKMESSAGES: Message[] = [
     sender: '3'
   },
   {
-    id: '100',
-    subject: 'Current Subject',
-    msgText: 'This is current message',
-    sender: '8'
-  },
-  {
     id: '5', 
     subject: 'Assignment 3 help', 
     msgText: 'I can meet with you today at 4:00 PM in my office.', 

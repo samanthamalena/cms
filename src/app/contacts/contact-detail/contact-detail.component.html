@@ -18,9 +18,9 @@
             Manage Contact <span class="carat"></span>
             </button>
             <ul class="dropdown-menu">
-              <li><a href="#">To Contact List</a></li>
-              <li><a href="#">Edit Contact</a></li>
-              <li><a href="#">Delete Contact</a></li>
+              <li><a style="cursor: pointer;">To Contact List</a></li>
+              <li routerLink=":id/edit"><a style="cursor: pointer;" (click)= "onEditContact()">Edit Contact</a></li>
+              <li><a style="cursor: pointer;"(click)= "onDeleteContact()">Delete Contact</a></li>
             </ul>
           </div>
 

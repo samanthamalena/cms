@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Message } from '../message.model';
-import { Contact } from 'src/app/contacts/contact-list/contact.model';
+import { Contact } from 'src/app/contacts/contact.model';
 import { ContactService } from 'src/app/contacts/contact.service';
 
 @Component({

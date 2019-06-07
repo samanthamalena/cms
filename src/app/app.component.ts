@@ -6,14 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  loadedFeature = 'contact';
-  selectedFeature = 'document';
+  title= 'WebLearn CMS!';
 
   onNavigate(feature: string){
-    this.loadedFeature= feature;
+    this.title= feature;
   }
 
-  switchView(selectedFeature: string){
-    this.selectedFeature = selectedFeature;
-  }
 }

@@ -1,11 +1,6 @@
-<cms-header (featureSelected)="onNavigate($event)" ></cms-header>
-<div class="container">
-<div class="row">
-  <div class="col-md-12">
-   <cms-contacts *ngIf= "loadedFeature === 'contact'"></cms-contacts>
-   <cms-message-list *ngIf= "loadedFeature === 'message'"></cms-message-list>
-   <cms-documents *ngIf= "loadedFeature === 'document'"></cms-documents>
-    </div>
-  </div>
+<cms-header></cms-header>
+<div class="container pull-left">
+    <router-outlet></router-outlet>
 </div>
+  
 

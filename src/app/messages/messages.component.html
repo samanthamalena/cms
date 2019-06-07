@@ -1,14 +1,5 @@
 <div class="container">
-    <div class="col-md-5">
-      <cms-message-list></cms-message-list>
-    </div>
-  <div class="col-md-4">
-    <cms-message-item
-    *ngIf="selectedMessageEvent; else infoText"
-    [message]="selectedMessageEvent"></cms-message-item>
-    <ng-template #infoText>
-      <p>Please select a Message!</p>
-    </ng-template>
+  <div class="col-md-12">
+    <cms-message-list></cms-message-list>
   </div>
-  </div>
-  
+</div>

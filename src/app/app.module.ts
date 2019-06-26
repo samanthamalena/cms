@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
+import { DndModule } from 'ng2-dnd';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header.component';
 import { ContactsComponent } from './contacts/contacts.component';
@@ -20,6 +21,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { DocumentEditComponent } from './documents/document-edit/document-edit.component';
 import { ContactEditComponent } from './contacts/contact-edit/contact-edit.component';
 import { WinRefService } from './win-ref.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MessagesService } from './messages/messages.service';
+import { DocumentService } from './documents/documents.service';
+import { ContactService } from './contacts/contact.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +48,12 @@ import { WinRefService } from './win-ref.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    DndModule.forRoot(),
+    HttpClientModule
+
   ],
   providers: [WinRefService],
   bootstrap: [AppComponent]

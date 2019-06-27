@@ -37,4 +37,9 @@ export class ContactListComponent implements OnInit {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  onKeyPress(value: string) {
+    this.term = value;
+
+  }
 }

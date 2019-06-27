@@ -25,6 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessagesService } from './messages/messages.service';
 import { DocumentService } from './documents/documents.service';
 import { ContactService } from './contacts/contact.service';
+import { ContactsFilterPipe } from './contacts/contacts-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ContactService } from './contacts/contact.service';
     DocumentListComponent,
     DropdownDirective,
     DocumentEditComponent,
-    ContactEditComponent
+    ContactEditComponent,
+    ContactsFilterPipe
   ],
   imports: [
     BrowserModule,

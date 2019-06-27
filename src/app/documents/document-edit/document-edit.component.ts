@@ -11,7 +11,7 @@ import { Document } from '../document.model';
 })
 export class DocumentEditComponent implements OnInit {
   id: string;
-  editMode: boolean = false;
+  editMode = false;
   originalDocument: Document;
   document: Document;
 
@@ -49,7 +49,7 @@ export class DocumentEditComponent implements OnInit {
     let values = form.value;
     let newDocument = new Document(' ', values.name, values.description, values.url, null);
 
-    if (!this.editMode) {
+    if (this.editMode === true) {
       this.documentService.updateDocument(this.originalDocument, newDocument);
     }
     else {

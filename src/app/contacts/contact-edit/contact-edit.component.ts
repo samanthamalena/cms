@@ -42,8 +42,16 @@ export class ContactEditComponent implements OnInit {
           }
           this.editMode = true;
           this.contact = JSON.parse(JSON.stringify(this.originalContact));
-        }
-      )
+
+          if( 
+            this.originalContact.group &&
+            this.originalContact.group.length > 0
+          ) {
+            this.groupContacts = JSON.parse(
+              JSON.stringify(this.originalContact.group)
+            );
+          }
+        });
   }
 
   onSubmit(form: NgForm) {

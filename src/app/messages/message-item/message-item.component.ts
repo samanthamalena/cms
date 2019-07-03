@@ -17,7 +17,12 @@ constructor(private contactService: ContactService) { }
 
   ngOnInit() {
     let contact: Contact = this.contactService.getContact(this.message.sender);
-    this.messageSender = contact.name;
+    if (contact) {
+      this.messageSender = contact.name;
+    } else {
+      this.messageSender = 'Sender name not available.';
+    }
+    
   }
 
 }

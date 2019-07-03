@@ -20,7 +20,7 @@ export class ContactListComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.contacts = this.contactService.getContacts();
+    this.contactService.getContacts();
 
     this.subscription = this.contactService.contactChangedEvent
     .subscribe(
@@ -28,6 +28,7 @@ export class ContactListComponent implements OnInit {
         this.contacts = contactList;
       }
     );
+    this.contactService.getContacts();
   }
 
   onNewContact() {

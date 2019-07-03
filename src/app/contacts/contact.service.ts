@@ -20,13 +20,32 @@ export class ContactService {
     selectedContactEvent = new Subject<Contact>();
     private contacts: Contact[] = [];
 
-    constructor() {
-        this.contacts = MOCKCONTACTS;
+    constructor(private http: HttpClient) {
+     //   this.contacts = MOCKCONTACTS;
         this.maxContactId = this.getMaxId();
     }
 
-    getContacts(): Contact[] {
-        return this.contacts.slice();
+    storeContacts() {
+        //   let json = JSON.stringify(contacts);
+        //   let header = new HttpHeaders({'Content-Type': 'application/json'});
+           this.http.put('https://samanthahancock-cms.firebaseio.com/contacts.json', this.contacts)
+               .subscribe((response: Response)=> {
+                   console.log(response);
+               });
+       }
+
+    getContacts() {
+        this.http.get<Contact[]>('https://samanthahancock-cms.firebaseio.com/contacts.json')
+        .subscribe(
+            (contacts) => {
+                this.contacts = contacts;
+                this.contacts.sort((a, b) => a.name > b.name ? 1 : b.name > a.name ? -1 : 0);
+                this.contactChangedEvent.next(this.contacts.slice());
+            },
+            (error: any) => {
+                console.log(error);
+            }
+        );
     }
 
     getContact(id: string): Contact {
@@ -61,7 +80,9 @@ export class ContactService {
         }
 
         this.contacts.splice(pos, 1);
-        this.contactChangedEvent.next(this.contacts.slice());
+        this.contactsListClone = this.contacts.slice();
+        this.contactChangedEvent.next(this.contactsListClone);
+        this.storeContacts();
     }
 
     updateContact(originialContact: Contact,
@@ -78,6 +99,7 @@ export class ContactService {
         this.contacts[pos] = newContact;
         this.contactsListClone = this.contacts.slice();
         this.contactChangedEvent.next(this.contactsListClone);
+        this.storeContacts();
     }
 
     addContact(newContact: Contact) {
@@ -88,5 +110,7 @@ export class ContactService {
         newContact.id = window.location.hash = this.maxContactId.toString();
         this.contacts.push(newContact);
         this.contactChangedEvent.next(this.contacts.slice());
+        this.contactsListClone = this.contacts.slice();
+        this.storeContacts();
     }
 }

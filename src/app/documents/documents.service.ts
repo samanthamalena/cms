@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Document } from "../documents/document.model";
-import { MOCKDOCUMENTS } from "./MOCKDOCUMENTS"
+import { MOCKDOCUMENTS } from "./MOCKDOCUMENTS";
 import { Subject, Observable } from 'rxjs';
 import { DocumentEditComponent } from './document-edit/document-edit.component';
 import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
@@ -26,25 +26,22 @@ export class DocumentService {
         this.maxDocumentId = this.getMaxId();
     }
 
-    storeDocuments() {
-     //   let json = JSON.stringify(documents);
-     //   let header = new HttpHeaders({'Content-Type': 'application/json'});
-        this.http.put('https://samanthahancock-cms.firebaseio.com/documents.json', this.documents)
+    storeDocuments(documents: Document[]) {
+        let json = JSON.stringify(documents);
+        let header = new HttpHeaders({'Content-Type': 'application/json'});
+        this.http.put('http://localhost:3000/documents', json, {headers: header})
             .subscribe((response: Response)=> {
-                console.log(response);
+                this.documentChangedEvent.next(documents.slice());
             });
     }
 
     getDocuments() {
-        this.http.get<Document[]>('https://samanthahancock-cms.firebaseio.com/documents.json')
+        this.http.get<{ message: string, documents: Document[] }>('http://localhost:3000/documents')
             .subscribe(
-                (documents) => {
-                    this.documents = documents;
+                (responseData) => {
+                    this.documents = responseData.documents;
                     this.documents.sort((a, b) => a.name > b.name ? 1 : b.name > a.name ? -1 : 0);
                     this.documentChangedEvent.next(this.documents.slice());
-                },
-                (error: any) => {
-                    console.log(error);
                 }
             );
     }
@@ -63,16 +60,12 @@ export class DocumentService {
             return;
         }
 
-        const pos = this.documents.findIndex(d => d.id === document.id);
-
-        if (pos < 0) {
-            return;
-        }
-
-        this.documents.splice(pos, 1);
-        this.documentsListClone = this.documents.slice();
-        this.documentChangedEvent.next(this.documentsListClone);
-        this.storeDocuments();
+        this.http.delete('http://localhost:3000/documents/' + document.id)
+            .subscribe(
+                (documents: Document[]) => {
+                    this.documents = documents;
+                    this.documentChangedEvent.next(this.documents.slice());
+                });
     }
 
     getMaxId(): number {
@@ -86,34 +79,49 @@ export class DocumentService {
     }
 
 
-    addDocument(newDocument: Document) {
-        if (newDocument === null) {
+    addDocument(document: Document) {
+        if (!document) {
             return;
         }
-        this.maxDocumentId++;
-        newDocument.id = window.location.hash = this.maxDocumentId.toString();
-        this.documents.push(newDocument);
-        this.documentsListClone = this.documents.slice();
-        this.documentChangedEvent.next(this.documentsListClone);
-        this.storeDocuments();
-    
-    }
 
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json'
+        });
+        document.id = '';
+        const strDocument = JSON.stringify(document);
+
+        this.http.post('http://localhost:3000/documents', strDocument, {headers: headers})
+            .subscribe(
+                (documents: Document[]) => {
+                    this.documents = documents;
+                    this.documentChangedEvent.next(this.documents.slice());
+                });
+     }
     updateDocument(originalDocument: Document,
         newDocument: Document) {
         if (!originalDocument || !newDocument) {
             return;
         }
-        const pos = this.documents.findIndex(d => d.id === originalDocument.id)
+        const pos = this.documents.findIndex(c => c.id === originalDocument.id);
         if (pos < 0) {
             return;
         }
 
-        newDocument.id = originalDocument.id;
-        this.documents[pos] = newDocument;
-        this.documentsListClone = this.documents.slice();
-        this.documentChangedEvent.next(this.documentsListClone);
-        this.storeDocuments();
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json'
+        });
+
+      //  const strDocument = JSON.stringify(newDocument);
+
+        this.http.put('http://localhost:3000/documents/' + originalDocument.id
+                        , newDocument
+                        , {headers: headers})
+            .subscribe(
+                (documents: Document[]) => {
+                    this.documents = documents;
+                    this.documentChangedEvent.next(this.documents.slice());
+                });
+        
     }
 
 }

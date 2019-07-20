@@ -64,11 +64,11 @@ export class ContactEditComponent implements OnInit {
     else {
       this.contactService.addContact(newContact);
     }
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate(['/contacts']);
   }
 
   onCancel() {
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate(['/contacts']);
   }
 
   onRemoveItem(index: number) {

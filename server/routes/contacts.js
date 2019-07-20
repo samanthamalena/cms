@@ -50,7 +50,7 @@ router.post('/', (req, res, next) => {
 });
 
 router.put('/:id', (req, res, next) => {
-    Contact.findOne({ id: req.param.id })
+    Contact.findOne({ id: req.params.id })
         .then(contact => {
             contact.name = req.body.name;
             contact.email = req.body.email;
@@ -75,8 +75,7 @@ router.put('/:id', (req, res, next) => {
     });
 
     router.delete("/:id", function (req, res, next) {
-
-        contact.findOne({ id: req.params.id}) 
+        Contact.findOne({ id: req.params.id}) 
            .then (contact => {
                
                 Contact.deleteOne({ id: req.params.id }, contact)
@@ -90,7 +89,8 @@ router.put('/:id', (req, res, next) => {
                 });
            })
            .catch(error => {
-               res.status(500).json({ message: 'Contact not found.',
+               res.status(500).json({ 
+                message: 'Contact not found.',
                 error: {contact: 'Contact not found'}
             });
            });

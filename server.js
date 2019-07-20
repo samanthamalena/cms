@@ -54,7 +54,6 @@ app.use(( req, res, next) => {
   next();
 });
 
-
 // Tell express to use the specified directory as the
 // root directory for your web site
 app.use(express.static(path.join(__dirname, 'dist/cms')));

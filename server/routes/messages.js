@@ -3,6 +3,7 @@ var router = express.Router();
 var sequenceGenerator = require('./sequenceGenerator');
 
 const Message = require('../models/message');
+const Contact = require('../models/contact');
 
 function returnError(res, error) {
     res.status(500).json({
@@ -55,10 +56,10 @@ router.put('/:id', (req, res, next) => {
             message.msgText = req.body.msgText;
             message.sender = req.body.sender;
 
-        Contact.updateOne({ id: req.params.id }, contact)
+        Message.updateOne({ id: req.params.id }, message)
             .then(result => {
                 res.status(204).json({
-                    message: 'Contact updated successfully'})
+                    message: 'Message updated successfully'})
                 })
                 .catch(error => {
                     returnError(res, error);
@@ -66,14 +67,32 @@ router.put('/:id', (req, res, next) => {
             })
         .catch(error => {
             res.status(500).json({
-                message: 'Contact not found.',
-                error: {contact: 'Contact not found'}
+                message: 'Message not found.',
+                error: {message: 'Message not found'}
             });
         });
     });
 
-    router.delete("/:id", (req, res, next) => {
-        Contact.findOne({ id: req.params.id})
+    router.delete("/:id", function (req, res, next) {
+
+        message.findOne({ id: req.params.id}) 
+           .then (message => {
+               
+                Message.deleteOne({ id: req.params.id }, message)
+                .then(result => {
+                    res.status(204).json({
+                        message: 'Message deleted successfully'})
+                })
+
+                .catch(error => {
+                    returnError(res, error);
+                });
+           })
+           .catch(error => {
+               res.status(500).json({ message: 'Message not found.',
+                error: {message: 'Message not found'}
+            });
+           });
     });
 
     module.exports = router;

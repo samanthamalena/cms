@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const documentSchema = mongoose.Schema({
     id: {type: String, required: true},
     name: {type: String, required: true},
-    url: {type: String, required: true},
-    description: {type: String, required: false}
+    description: {type: String, required: false},
+    url: {type: String, required: true}
 });
 
 module.exports = mongoose.model('Document', documentSchema);

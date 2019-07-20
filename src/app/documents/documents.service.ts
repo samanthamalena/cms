@@ -22,18 +22,17 @@ export class DocumentService {
     private documents: Document[] = [];
 
     constructor(private http: HttpClient) {
-      //  this.documents = MOCKDOCUMENTS;
         this.maxDocumentId = this.getMaxId();
     }
 
-    storeDocuments(documents: Document[]) {
-        let json = JSON.stringify(documents);
-        let header = new HttpHeaders({'Content-Type': 'application/json'});
-        this.http.put('http://localhost:3000/documents', json, {headers: header})
-            .subscribe((response: Response)=> {
-                this.documentChangedEvent.next(documents.slice());
-            });
-    }
+ //  storeDocuments(documents: Document[]) {
+  //      let json = JSON.stringify(documents);
+  //      let header = new HttpHeaders({'Content-Type': 'application/json'});
+  //      this.http.put('http://localhost:3000/documents', json, {headers: header})
+  //          .subscribe((response: Response)=> {
+  //              this.documentChangedEvent.next(documents.slice());
+  //          });
+  //  } 
 
     getDocuments() {
         this.http.get<{ message: string, documents: Document[] }>('http://localhost:3000/documents')
@@ -60,10 +59,15 @@ export class DocumentService {
             return;
         }
 
-        this.http.delete('http://localhost:3000/documents/' + document.id)
+        const pos = this.documents.findIndex(d => d.id === document.id);
+        if (pos < 0) {
+            return;
+        }
+
+        this.http.delete<{ message: string}>('http://localhost:3000/documents/' + document.id)
             .subscribe(
-                (documents: Document[]) => {
-                    this.documents = documents;
+                (message) => {
+                    this.documents.splice(pos, 1);
                     this.documentChangedEvent.next(this.documents.slice());
                 });
     }
@@ -88,12 +92,12 @@ export class DocumentService {
             'Content-Type': 'application/json'
         });
         document.id = '';
-        const strDocument = JSON.stringify(document);
+        //const strDocument = JSON.stringify(document);
 
-        this.http.post('http://localhost:3000/documents', strDocument, {headers: headers})
+        this.http.post('http://localhost:3000/documents', document, {headers: headers})
             .subscribe(
-                (documents: Document[]) => {
-                    this.documents = documents;
+                (document: Document) => {
+                    this.documents.push(document);
                     this.documentChangedEvent.next(this.documents.slice());
                 });
      }
@@ -111,14 +115,16 @@ export class DocumentService {
             'Content-Type': 'application/json'
         });
 
+        newDocument.id = originalDocument.id;
+
       //  const strDocument = JSON.stringify(newDocument);
 
         this.http.put('http://localhost:3000/documents/' + originalDocument.id
                         , newDocument
                         , {headers: headers})
             .subscribe(
-                (documents: Document[]) => {
-                    this.documents = documents;
+                (response: Response) => {
+                    this.documents[pos] = newDocument;
                     this.documentChangedEvent.next(this.documents.slice());
                 });
         

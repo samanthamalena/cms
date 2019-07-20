@@ -18,8 +18,8 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="form-group">
-      <label for="urlPath">Document URL</label>
-      <input [ngModel]=document?.url type="text" id="urlPath" class="form-control" name="url" required #url="ngModel">
+      <label for="url">Document URL</label>
+      <input [ngModel]=document?.url type="text" id="url" class="form-control" name="url" required #url="ngModel">
       <div class="alert alert-danger" *ngIf="!description || !name">
         The Document title and URL are required fields.
       </div>
